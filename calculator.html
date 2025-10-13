@@ -1,0 +1,83 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax & Social Security Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  <script src="calculator.js" defer></script>
+  <!-- استبدال FontAwesome بـ Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <h1 class="page-title" id="title">
+    <!-- أيقونة Material Icons -->
+    <span class="material-icons">calculate</span> Tax and Social Security Calculator
+  </h1>
+  <div class="container">
+    <div class="language-buttons-container">
+      <button class="language-button" onclick="changeLanguage('ar')">
+        <!-- أيقونة Material Icons -->
+        <span class="material-icons">language</span> العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('en')">
+        <!-- أيقونة Material Icons -->
+        <span class="material-icons">public</span> English
+      </button>
+    </div>
+
+    <label for="salary" id="salaryLabel">Monthly Salary (JOD):</label>
+    <div class="input-group">
+      <!-- أيقونة Material Icons -->
+      <span class="material-icons">attach_money</span>
+      <input type="number" id="salary" placeholder="Enter salary" step="0.01">
+    </div>
+
+    <label for="maritalStatus" id="marشitalStatusLabel">Marital Status:</label>
+    <div class="input-group">
+      <!-- أيقونة Material Icons -->
+      <span class="material-icons">person</span>
+      <select id="maritalStatus" onchange="toggleChildrenField()">
+        <option value="">Select Status</option>
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+      </select>
+    </div>
+
+    <div id="childrenContainer">
+      <label for="children" id="childrenLabel">Number of Children:</label>
+      <div class="input-group">
+        <!-- أيقونة Material Icons -->
+        <span class="material-icons">child_care</span>
+        <input type="number" id="children" placeholder="Enter number of children" min="0">
+      </div>
+      <div id="childrenWarning" class="warning" style="display:none;">Maximum exemption is for 3 children (3000 JOD).</div>
+    </div>
+
+    <label for="year" id="yearLabel">Year of employment in social security:</label>
+    <div class="input-group">
+      <!-- أيقونة Material Icons -->
+      <span class="material-icons">work</span>
+      <select id="year">
+        <option value="">Select Year</option>
+        <option value="before2009">Before 6th of Oct 2009</option>
+        <option value="after2009">After 5th of Oct 2009</option>
+        <option value="retired">Retired - متقاعد</option>
+      </select>
+    </div>
+
+    <button onclick="calculate()">
+      <!-- أيقونة Material Icons -->
+      <span class="material-icons">insights</span> Calculate
+    </button>
+
+    <div id="result" class="result">
+      <p><span class="material-icons">calendar_today</span> <span id="annualSalaryLabel">Annual Salary:</span> <span id="annualSalary"></span> JOD</p>
+      <p><span class="material-icons">check_circle</span> <span id="exemptionsLabel">Exemption:</span> <span id="exemptions"></span> JOD</p>
+      <p><span class="material-icons">account_balance_wallet</span> <span id="taxableIncomeLabel">Taxable Income:</span> <span id="taxableIncome"></span> JOD</p>
+      <p><span class="material-icons">money_off</span> <span id="annualTaxLabel">Total Annual Tax:</span> <span id="annualTax"></span> JOD</p>
+      <p><span class="material-icons">calendar_month</span> <span id="monthlyTaxLabel">Monthly Tax:</span> <span id="monthlyTax"></span> JOD</p>
+      <p><span class="material-icons">shield_person</span> <span id="employeeSocialSecurityLabel">Employee Social Security Total:</span> <span id="employeeSocialSecurity"></span> JOD</p>
+      <p><span class="material-icons">business</span> <span id="companySocialSecurityLabel">Company Social Security Total:</span> <span id="companySocialSecurity"></span> JOD</p>
+    </div>
+  </div>
+</body>

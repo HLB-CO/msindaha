@@ -1,0 +1,223 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax & Social Security Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  <script src="calculator.js" defer></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* تصميم الهيدر */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f4f4f4;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px; /* لتوفير المساحة المناسبة للمحتوى */
+    }
+
+    /* الأزرار في الهيدر */
+    .header .home-btn, .header .mode-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #003366;
+      cursor: pointer;
+    }
+
+    /* تأثير التحويم على الأزرار في الهيدر */
+    .header .home-btn:hover, .header .mode-btn:hover {
+      color: #007BFF;
+    }
+
+    /* عنوان الهيدر */
+    .header .title {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      flex-grow: 1;
+      color: #003366;
+    }
+
+    /* الأزرار جنب بعض على الطرب */
+    .header .buttons-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* تحسين تصميم الوضع المظلم */
+    body.dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+
+    body.dark-mode .container {
+      background-color: #333;
+    }
+
+    body.dark-mode .input-group {
+      background: #444;
+      border-color: #555;
+    }
+
+    body.dark-mode button {
+      background: linear-gradient(135deg, #004488, #003366);
+    }
+
+    body.dark-mode .warning {
+      color: #ff6666;
+    }
+
+    body.dark-mode .result {
+      background-color: #222;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .result p {
+      color: white;
+    }
+
+    /* تخفيف عرض الأزرار */
+    button {
+      width: auto;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* الأزرار في الصفحة */
+    button:hover {
+      background: linear-gradient(135deg, #002244, #004488);
+      transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- الهيدر الجديد -->
+  <div class="header">
+    <div class="buttons-container">
+      <button class="home-btn" onclick="window.location.href='index.html'">
+        <span class="material-icons">arrow_back</span>
+      </button>
+      <button class="mode-btn" onclick="toggleDarkMode()">
+        <span class="material-icons">nights_stay</span>
+      </button>
+    </div>
+    <div class="title">Tax & Social Security Calculator</div>
+  </div>
+
+  <!-- المحتوى الرئيسي بعد الهيدر -->
+  <div class="container" style="padding-top: 80px;"> <!-- إضافة padding-top لتجنب تغطي الهيدر على المحتوى -->
+    <h1 class="page-title" id="title">
+      <span class="material-icons">calculate</span> Tax and Social Security Calculator
+    </h1>
+
+    <div class="language-buttons-container">
+      <button class="language-button" onclick="changeLanguage('ar')">
+        <span class="material-icons">language</span> العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('en')">
+        <span class="material-icons">public</span> English
+      </button>
+    </div>
+<!-- اختيار الدولة -->
+<label for="country" id="countryLabel">Country:</label>
+<div class="input-group">
+  <span class="material-icons">public</span>
+  <select id="country" onchange="checkCountry()">
+    <option value="Jordan">Jordan</option>
+    <option value="Lebanon">Lebanon</option>
+    <option value="Iraq">Iraq</option>
+    <option value="Bahrain">Bahrain</option>
+    <option value="Djibouti">Djibouti</option>
+    <option value="Qatar">Qatar</option>
+    <option value="Oman">Oman</option>
+    <option value="Syria">Syria</option>
+    <option value="Tunisia">Tunisia</option>
+    <option value="Palestine">Palestine</option>
+    <option value="Algeria">Algeria</option>
+    <option value="Sudan">Sudan</option>
+    <option value="Somalia">Somalia</option>
+    <option value="Kuwait">Kuwait</option>
+    <option value="UAE">UAE</option>
+    <option value="United Kingdom">United Kingdom</option>
+  </select>
+</div>
+
+<!-- رسالة "قريباً" -->
+<div id="comingSoonMessage" class="warning" style="display:none; margin-top:10px;">
+  Tax calculator is available only for Jordan. Coming soon for other countries.
+</div>
+
+    <label for="salary" id="salaryLabel">Monthly Salary (JOD):</label>
+    <div class="input-group">
+      <span class="material-icons">attach_money</span>
+      <input type="number" id="salary" placeholder="Enter salary" step="0.01">
+    </div>
+
+    <label for="maritalStatus" id="maritalStatusLabel">Marital Status:</label>
+    <div class="input-group">
+      <span class="material-icons">person</span>
+      <select id="maritalStatus" onchange="toggleChildrenField()">
+        <option value="">Select Status</option>
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+      </select>
+    </div>
+
+    <div id="childrenContainer">
+      <label for="children" id="childrenLabel">Number of Children:</label>
+      <div class="input-group">
+        <span class="material-icons">child_care</span>
+        <input type="number" id="children" placeholder="Enter number of children" min="0">
+      </div>
+      <div id="childrenWarning" class="warning" style="display:none;">Maximum exemption is for 3 children (3000 JOD).</div>
+    </div>
+
+    <label for="year" id="yearLabel">Year of employment in social security:</label>
+    <div class="input-group">
+      <span class="material-icons">work</span>
+      <select id="year">
+        <option value="">Select Year</option>
+        <option value="before2009">Before 6th of Oct 2009</option>
+        <option value="after2009">After 5th of Oct 2009</option>
+        <option value="retired">Retired - متقاعد</option>
+      </select>
+    </div>
+
+    <button onclick="calculate()">
+      <span class="material-icons">insights</span> Calculate
+    </button>
+
+    <div id="result" class="result">
+      <p><span class="material-icons">calendar_today</span> <span id="annualSalaryLabel">Annual Salary:</span> <span id="annualSalary"></span> JOD</p>
+      <p><span class="material-icons">check_circle</span> <span id="exemptionsLabel">Exemption:</span> <span id="exemptions"></span> JOD</p>
+      <p><span class="material-icons">account_balance_wallet</span> <span id="taxableIncomeLabel">Taxable Income:</span> <span id="taxableIncome"></span> JOD</p>
+      <p><span class="material-icons">money_off</span> <span id="annualTaxLabel">Total Annual Tax:</span> <span id="annualTax"></span> JOD</p>
+      <p><span class="material-icons">calendar_month</span> <span id="monthlyTaxLabel">Monthly Tax:</span> <span id="monthlyTax"></span> JOD</p>
+      <p><span class="material-icons">shield_person</span> <span id="employeeSocialSecurityLabel">Employee Social Security Total:</span> <span id="employeeSocialSecurity"></span> JOD</p>
+      <p><span class="material-icons">business</span> <span id="companySocialSecurityLabel">Company Social Security Total:</span> <span id="companySocialSecurity"></span> JOD</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const modeButton = document.querySelector('.mode-btn span');
+      if (document.body.classList.contains('dark-mode')) {
+        modeButton.textContent = 'wb_sunny';  // تغيير الأيقونة عند تفعيل المود الغامق
+      } else {
+        modeButton.textContent = 'nights_stay';  // تغيير الأيقونة عند التبديل للمود الفاتح
+      }
+    }
+  </script>
+</body>

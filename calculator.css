@@ -1,0 +1,256 @@
+/* الجسم الأساسي للصفحة */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #343a40;
+  line-height: 1.6;  /* تحسين التباعد بين الأسطر */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* عندما يكون المود مظلم */
+body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+/* عنوان الصفحة */
+.page-title {
+  text-align: center;
+  color: #003366;
+  font-size: 24px;
+  margin: 20px 0;
+  text-transform: uppercase;  /* تأثير لتكبير الحروف */
+  letter-spacing: 1px;  /* تحسين التباعد بين الحروف */
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .page-title {
+  color: #fff;
+}
+
+/* حاوية المحتوى */
+.container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 500px;
+  margin-top: 80px; /* هامش علوي لكي يظهر المحتوى بعد الهيدر الثابت */
+  animation: fadeIn 1s ease;
+}
+
+body.dark-mode .container {
+  background-color: #333;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* تأثير الدخول عند تحميل الصفحة */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* تنسيق الحقول */
+label {
+  font-size: 15px;
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 600;
+  color: #003366;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode label {
+  color: #ccc;
+}
+
+/* مجموعة المدخلات */
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  transition: 0.3s ease;
+}
+
+body.dark-mode .input-group {
+  border-color: #444;
+  background: #444;
+}
+
+/* أيقونات المدخلات */
+.input-group .material-icons {
+  flex: 0 0 40px;
+  text-align: center;
+  color: #003366;
+  font-size: 18px;
+}
+
+body.dark-mode .input-group .material-icons {
+  color: #bbb;
+}
+
+/* الحقول النصية */
+.input-group input,
+.input-group select {
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 0 10px 10px 0;
+  background: transparent;
+  box-sizing: border-box;
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+body.dark-mode .input-group input,
+body.dark-mode .input-group select {
+  background: #666;
+  color: white;
+}
+
+body.dark-mode .input-group:focus-within {
+  border-color: #0066cc;
+  box-shadow: 0 0 8px rgba(0, 102, 204, 0.3);
+  background: #444;
+}
+
+/* الأزرار */
+button {
+  background: linear-gradient(135deg, #003366, #005599);
+  color: white;
+  padding: 15px;
+  font-size: 17px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode button {
+  background: linear-gradient(135deg, #0066cc, #003366);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #002244, #004488);
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2);
+}
+
+body.dark-mode button:hover {
+  background: linear-gradient(135deg, #004488, #002244);
+}
+
+/* تحذيرات النص */
+.warning {
+  color: red;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+body.dark-mode .warning {
+  color: #ff6666;
+}
+
+/* نتائج الحساب */
+.result {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  display: none;
+  animation: fadeIn 1s ease;
+}
+
+body.dark-mode .result {
+  background-color: #333;
+  border-color: #555;
+}
+
+/* تنسيق النتائج */
+.result p {
+  margin: 10px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result .material-icons {
+  color: #003366;
+}
+
+body.dark-mode .result .material-icons {
+  color: #bbb;
+}
+
+/* أزرار تغيير اللغة */
+.language-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* تصميم أزرار اللغة */
+.language-button {
+  background: linear-gradient(135deg, #28a745, #218838);
+  margin: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .language-button {
+  background: linear-gradient(135deg, #0066cc, #004488);
+}
+
+.language-button:hover {
+  background: linear-gradient(135deg, #218838, #196f31);
+  transform: scale(1.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .language-button:hover {
+  background: linear-gradient(135deg, #004488, #002244);
+}
+
+/* تحسين استجابة الصفحة على الأجهزة الصغيرة */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
